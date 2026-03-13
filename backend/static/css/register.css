@@ -1,0 +1,101 @@
+:root {
+  --background: #fefbf7;
+  --foreground: #3e3532;
+  --primary: #e8b4a6;
+  --border: rgba(232, 180, 166, 0.28);
+  --muted: #8b7e79;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+}
+.split {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.visual {
+  background-image: linear-gradient(rgba(212, 165, 116, 0.16), rgba(232, 180, 166, 0.2)), url("https://images.unsplash.com/photo-1768471126520-11aa0ab954ac?auto=format&fit=crop&w=1400&q=80");
+  background-size: cover;
+  background-position: center;
+}
+.auth-panel {
+  display: grid;
+  place-items: center;
+  padding: 28px;
+}
+.auth-card {
+  width: min(460px, 100%);
+}
+.auth-card h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3rem;
+}
+.auth-card > p { color: var(--muted); margin-top: 8px; }
+form { display: grid; gap: 12px; margin-top: 20px; }
+label { display: grid; gap: 6px; font-weight: 400; }
+.password-row { gap: 6px; }
+.password-input-wrap { position: relative; display: block; }
+input {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 12px;
+  font: inherit;
+  width: 100%;
+}
+input::placeholder {
+  font-weight: 400;
+}
+.eye-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px;
+  margin: 0;
+  color: var(--muted);
+}
+.password-strength {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.password-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.field-error {
+  min-height: 1em;
+  color: #b74a35;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+button {
+  margin-top: 10px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #c89b4c, #ddbc7c);
+  color: #fff;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+#message { color: #934f3f; }
+a { color: #bf7f6f; text-decoration: none; font-weight: 700; }
+@media (max-width: 950px) {
+  .split { grid-template-columns: 1fr; }
+  .visual { display: none; }
+}
+
+/* Unified form typography */
+label, input, select, textarea {
+  font-weight: 400;
+}
+

@@ -1,0 +1,158 @@
+:root {
+  --background: #fefbf7;
+  --foreground: #3e3532;
+  --primary: #e8b4a6;
+  --border: rgba(232, 180, 166, 0.28);
+  --muted: #8b7e79;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+}
+.split {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.visual {
+  background-image: linear-gradient(rgba(232, 180, 166, 0.2), rgba(232, 180, 166, 0.12)), url("https://images.unsplash.com/photo-1601049379561-a8ba6fbcad8b?auto=format&fit=crop&w=1400&q=80");
+  background-size: cover;
+  background-position: center;
+}
+.auth-panel {
+  display: grid;
+  place-items: center;
+  padding: 28px;
+}
+.auth-card {
+  width: min(440px, 100%);
+}
+.auth-card h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3rem;
+}
+.auth-card > p { color: var(--muted); margin-top: 8px; }
+form { display: grid; gap: 12px; margin-top: 20px; }
+label { display: grid; gap: 6px; font-weight: 400; }
+.password-row { gap: 6px; }
+.password-input-wrap { position: relative; display: block; }
+input {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 12px;
+  font: inherit;
+  width: 100%;
+}
+input::placeholder {
+  font-weight: 400;
+}
+.eye-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px;
+  margin: 0;
+  color: var(--muted);
+}
+button {
+  margin-top: 10px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #c89b4c, #ddbc7c);
+  color: #fff;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.support-launch-btn {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.support-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 14, 10, 0.48);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.support-modal.hidden {
+  display: none;
+}
+
+.support-modal-card {
+  width: min(480px, 100%);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 18px 38px rgba(20, 14, 10, 0.24);
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.support-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.support-modal-head h3 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.4rem;
+}
+
+.close-support-btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--foreground);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin: 0;
+}
+
+.support-note {
+  margin: 0;
+  color: var(--muted);
+}
+textarea {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 12px;
+  font: inherit;
+  resize: vertical;
+  width: 100%;
+}
+.support-btn {
+  margin-top: 4px;
+}
+#support-message {
+  margin: 0;
+  color: #934f3f;
+}
+#message { color: #934f3f; }
+.hidden { display: none; }
+a { color: #bf7f6f; text-decoration: none; font-weight: 700; }
+@media (max-width: 950px) {
+  .split { grid-template-columns: 1fr; }
+  .visual { display: none; }
+}
+
+/* Unified form typography */
+label, input, select, textarea {
+  font-weight: 400;
+}
+

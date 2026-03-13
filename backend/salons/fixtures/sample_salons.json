@@ -1,0 +1,176 @@
+[
+  {
+    "model": "salons.salon",
+    "pk": 1001,
+    "fields": {
+      "name": "Luxe Beauty Studio",
+      "category": "hair",
+      "rating": "4.9",
+      "address": "123 Madison Avenue, Manhattan, NY 10016",
+      "working_hours": "Mon: 09:00-20:00, Tue: 09:00-20:00, Wed: 09:00-20:00, Thu: 09:00-20:00, Fri: 09:00-20:00, Sat: 09:00-20:00, Sun: 10:00-18:00",
+      "phone_number": "+1 (555) 123-4567",
+      "email": "info@luxebeauty.com",
+      "description": "Experience luxury and elegance with premium beauty treatments in a refined atmosphere.",
+      "image": "salon_images/sample/luxe_main.jpg",
+      "opening_hours": {
+        "monday": "09:00-20:00",
+        "tuesday": "09:00-20:00",
+        "wednesday": "09:00-20:00",
+        "thursday": "09:00-20:00",
+        "friday": "09:00-20:00",
+        "saturday": "09:00-20:00",
+        "sunday": "10:00-18:00"
+      }
+    }
+  },
+  {
+    "model": "salons.salon",
+    "pk": 1002,
+    "fields": {
+      "name": "Serenity Wellness Spa",
+      "category": "spa",
+      "rating": "4.8",
+      "address": "78 Midtown West, New York, NY 10019",
+      "working_hours": "Mon: 10:00-21:00, Tue: 10:00-21:00, Wed: 10:00-21:00, Thu: 10:00-21:00, Fri: 10:00-22:00, Sat: 10:00-22:00, Sun: 10:00-19:00",
+      "phone_number": "+1 (555) 777-9900",
+      "email": "hello@serenityspa.com",
+      "description": "A modern wellness spa offering holistic facial treatments, nail care, and signature relaxation services.",
+      "image": "salon_images/sample/serenity_main.jpg",
+      "opening_hours": {
+        "monday": "10:00-21:00",
+        "tuesday": "10:00-21:00",
+        "wednesday": "10:00-21:00",
+        "thursday": "10:00-21:00",
+        "friday": "10:00-22:00",
+        "saturday": "10:00-22:00",
+        "sunday": "10:00-19:00"
+      }
+    }
+  },
+  {
+    "model": "salons.service",
+    "pk": 2001,
+    "fields": {
+      "salon": 1001,
+      "name": "Women's Haircut",
+      "duration_minutes": 60,
+      "price": "75.00",
+      "category": "Hair"
+    }
+  },
+  {
+    "model": "salons.service",
+    "pk": 2002,
+    "fields": {
+      "salon": 1001,
+      "name": "Hair Coloring",
+      "duration_minutes": 120,
+      "price": "150.00",
+      "category": "Hair"
+    }
+  },
+  {
+    "model": "salons.service",
+    "pk": 2003,
+    "fields": {
+      "salon": 1001,
+      "name": "Gel Manicure",
+      "duration_minutes": 60,
+      "price": "55.00",
+      "category": "Nails"
+    }
+  },
+  {
+    "model": "salons.service",
+    "pk": 2004,
+    "fields": {
+      "salon": 1002,
+      "name": "Hydrating Facial",
+      "duration_minutes": 75,
+      "price": "95.00",
+      "category": "Skincare"
+    }
+  },
+  {
+    "model": "salons.service",
+    "pk": 2005,
+    "fields": {
+      "salon": 1002,
+      "name": "Spa Pedicure",
+      "duration_minutes": 60,
+      "price": "60.00",
+      "category": "Nails"
+    }
+  },
+  {
+    "model": "salons.service",
+    "pk": 2006,
+    "fields": {
+      "salon": 1002,
+      "name": "Relaxation Massage",
+      "duration_minutes": 90,
+      "price": "130.00",
+      "category": "Spa"
+    }
+  },
+  {
+    "model": "salons.salonphoto",
+    "pk": 3001,
+    "fields": {
+      "salon": 1001,
+      "image": "salon_gallery/sample/luxe_1.jpg",
+      "caption": "Main salon interior",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "salons.salonphoto",
+    "pk": 3002,
+    "fields": {
+      "salon": 1001,
+      "image": "salon_gallery/sample/luxe_2.jpg",
+      "caption": "Nail station",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "salons.salonphoto",
+    "pk": 3003,
+    "fields": {
+      "salon": 1001,
+      "image": "salon_gallery/sample/luxe_3.jpg",
+      "caption": "Product shelf",
+      "sort_order": 3
+    }
+  },
+  {
+    "model": "salons.salonphoto",
+    "pk": 3004,
+    "fields": {
+      "salon": 1002,
+      "image": "salon_gallery/sample/serenity_1.jpg",
+      "caption": "Reception area",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "salons.salonphoto",
+    "pk": 3005,
+    "fields": {
+      "salon": 1002,
+      "image": "salon_gallery/sample/serenity_2.jpg",
+      "caption": "Spa room",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "salons.salonphoto",
+    "pk": 3006,
+    "fields": {
+      "salon": 1002,
+      "image": "salon_gallery/sample/serenity_3.jpg",
+      "caption": "Treatment lounge",
+      "sort_order": 3
+    }
+  }
+]

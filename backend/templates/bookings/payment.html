@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaute | Payment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}" />
+  </head>
+  <body>
+    <div id="payment-page" class="page-shell">
+      <header class="topbar">
+        <a class="back-link" href="{% if pending_booking %}{{ pending_booking.back_to_booking_url }}{% else %}/salons/{% endif %}">
+          <span class="icon">&larr;</span>
+          Back to Booking
+        </a>
+        <h1>Beaute</h1>
+        <div class="topbar-space"></div>
+      </header>
+
+      <main class="content-wrap">
+        <h2 class="page-title">Payment</h2>
+
+        <section class="grid-layout">
+          <div class="left-stack">
+            <article class="card card-accent">
+              <div class="title-row">
+                <span class="title-icon">&#128179;</span>
+                <h3>Card Details</h3>
+              </div>
+              <p class="muted">Please transfer the payment to the card number below, then upload your payment receipt to confirm your booking.</p>
+
+              <div class="card-number-box">
+                <p class="label-lite">Card Number</p>
+                <div class="card-number-row">
+                  <strong id="card">4023 0605 0380 4204</strong>
+                  <button type="button" id="copy-btn" class="outline-btn">Copy</button>
+                </div>
+                <p class="label-lite">Cardholder: Beaute Salon Services</p>
+              </div>
+
+              <div class="info-box">
+                <span class="info-icon">&#9888;</span>
+                <div>
+                  <p class="info-title">Important:</p>
+                  <p class="muted">After making the transfer, please upload a clear screenshot or photo of your payment receipt below.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Upload Payment Receipt</h3>
+              <form id="payment-form" class="upload-form" novalidate>
+                <label for="receipt">Payment Receipt</label>
+                <input type="file" id="receipt" name="payment_receipt" accept="image/*,.pdf" required hidden />
+                <label for="receipt" id="upload-zone" class="upload-zone">
+                  <div id="upload-placeholder">
+                    <p class="upload-title">Click to upload receipt</p>
+                    <p class="upload-sub">PNG, JPG, PDF up to 10MB</p>
+                  </div>
+                  <div id="upload-file" class="upload-file" hidden>
+                    <p id="file-name" class="upload-title"></p>
+                    <p id="file-size" class="upload-sub"></p>
+                    <p class="upload-change">Click to change file</p>
+                  </div>
+                </label>
+
+                <div class="requirements">
+                  <h4>Receipt Requirements:</h4>
+                  <p>- Clear and readable screenshot or photo</p>
+                  <p>- Must show transaction amount</p>
+                  <p>- Must show transaction date and time</p>
+                  <p>- Must show card number (last 4 digits: 4204)</p>
+                </div>
+
+                <button type="submit" id="submit-btn" class="submit-btn" disabled>Please Upload Receipt First</button>
+              </form>
+              <p id="status" class="status"></p>
+            </article>
+          </div>
+
+          <aside class="card summary-card">
+            <h3>Booking Summary</h3>
+            <div class="summary-item"><span>Salon</span><p>{% if pending_booking %}{{ pending_booking.salon_name }}{% else %}Not selected{% endif %}</p></div>
+            <div class="summary-item"><span>Service</span><p>{% if pending_booking %}{{ pending_booking.service_name }}{% else %}Not selected{% endif %}</p></div>
+            <div class="summary-item"><span>Specialist</span><p>{% if pending_booking %}{{ pending_booking.employee_name }}{% else %}Not selected{% endif %}</p></div>
+            <div class="summary-item"><span>Date & Time</span><p>{% if pending_booking %}{{ pending_booking.booking_date }}<br />{{ pending_booking.start_time }}{% else %}Not selected{% endif %}</p></div>
+            <div class="summary-item"><span>Duration</span><p>{% if pending_booking %}{{ pending_booking.duration }}{% else %}Not selected{% endif %}</p></div>
+            <div class="totals">
+              <div><span>Subtotal</span><p>${% if pending_booking %}{{ pending_booking.service_price }}{% else %}0.00{% endif %}</p></div>
+              <div><span>Service Fee</span><p>${% if pending_booking %}{{ pending_booking.service_fee }}{% else %}0.00{% endif %}</p></div>
+              <div class="total-line"><span>Total</span><strong>${% if pending_booking %}{{ pending_booking.total_price }}{% else %}0.00{% endif %}</strong></div>
+            </div>
+            <p class="summary-note">Your appointment will be confirmed once we verify your payment receipt. Free cancellation up to 24 hours before your appointment.</p>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <section id="success-screen" class="success-screen" hidden>
+      <div class="success-card">
+        <div class="success-icon">&#10003;</div>
+        <h2>Payment Submitted!</h2>
+        <p>Your payment receipt has been uploaded. Your appointment will be confirmed once we verify the payment.</p>
+        <button type="button" id="success-home-btn" class="submit-btn">Back to Home</button>
+      </div>
+    </section>
+
+    <script src="{% static 'js/payment.js' %}" defer></script>
+  </body>
+</html>

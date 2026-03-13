@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaute | All Salons</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/salons.css' %}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="logo" href="/services/">Beaute</a>
+      <nav>
+        <a href="/services/">Services</a>
+        <a href="/salons/" class="active">Salons</a>
+        <a href="/profile/">Profile</a>
+      </nav>
+      <div class="topbar-spacer" aria-hidden="true">Beaute</div>
+    </header>
+    <main class="container">
+      <h1>All Partner Salons</h1>
+      <input id="search" type="search" placeholder="Search by name or address" class="search" />
+      <div id="salons-list" class="grid">
+        {% for salon in salons %}
+        <article class="card">
+          {% if salon.image %}
+          <img src="{{ salon.image.url }}" alt="{{ salon.name }}" />
+          {% else %}
+          <img src="https://images.unsplash.com/photo-1611211235015-e2e3a7d09e97?auto=format&fit=crop&w=1000&q=80" alt="{{ salon.name }}" />
+          {% endif %}
+          <div class="card-body">
+          <h3>{{ salon.name }}</h3>
+          <p>{% if salon.rating %}{{ salon.rating|floatformat:1 }}{% else %}{{ salon.avg_rating|default:0|floatformat:1 }}{% endif %} ({{ salon.review_count }} reviews)</p>
+          <p>{{ salon.address }}</p>
+          <p>$$$</p>
+          <a href="/salon/{{ salon.id }}/">Open</a>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </main>
+    <script src="{% static 'js/salons.js' %}" defer></script>
+  </body>
+</html>

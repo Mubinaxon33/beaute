@@ -1,0 +1,320 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaute | Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="logo" href="/services/">Beaute</a>
+      <nav>
+        <a href="/services/">Services</a>
+        <a href="/booking/">Salons</a>
+        <a class="active" href="/profile/">Profile</a>
+      </nav>
+    </header>
+
+    <section class="profile-hero">
+      <div class="profile-hero-inner">
+        <div class="avatar-wrap">
+          <img
+            id="profile-avatar"
+            class="avatar"
+            src="{% if profile_image_url %}{{ profile_image_url }}{% else %}{% static 'images/default-user.svg' %}{% endif %}"
+            alt="Profile"
+          />
+          <button id="open-photo-modal" type="button" class="outline-btn mini">Change Photo</button>
+        </div>
+        <div class="hero-text">
+          <h1>{{ full_name }}</h1>
+          <p>Member since {{ member_since|date:"F j, Y" }}</p>
+          <div class="badges">
+            <span class="badge gold">{{ membership_level }} Member</span>
+            <span class="badge outline">{{ loyalty_points }} Points</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button id="toggle-profile-edit" class="edit-btn" type="button">Edit Profile</button>
+          <a class="edit-btn" href="/logout/">Logout</a>
+        </div>
+      </div>
+      <form id="profile-update-form" class="security-card hidden" method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <h2>Edit Profile</h2>
+        <label>Full Name <input type="text" name="full_name" value="{{ full_name }}" required /></label>
+        <label>Phone Number <input id="phone-input" type="text" name="phone_number" value="{{ phone_number|default:'' }}" placeholder="+998 (XX)-XXX-XX-XX" /></label>
+        <label>
+          Location
+          <input id="location-input" type="text" name="location" value="{{ location }}" placeholder="Enter your location" />
+        </label>
+        <div class="location-actions">
+          <button id="detect-location-btn" type="button" class="outline-btn mini">Use My Location</button>
+          <button type="submit" class="edit-btn mini">Save Profile</button>
+        </div>
+        <p id="profile-update-status"></p>
+      </form>
+    </section>
+
+    <main class="profile-wrapper">
+      <section class="left-column">
+        <article class="security-card">
+          <div class="card-heading">
+            <h2>Personal Information</h2>
+          </div>
+          <div class="info-group">
+            <p class="muted">Email</p>
+            <p>{{ email }}</p>
+          </div>
+          <div class="divider"></div>
+          <div class="info-group">
+            <p class="muted">Phone</p>
+            <p id="phone-display">{{ phone_number|default:'+998 (__) -___-__-__' }}</p>
+          </div>
+          <div class="divider"></div>
+          <div class="info-group">
+            <p class="muted">Location</p>
+            <p id="location-display">{{ location|default:"Not set" }}</p>
+          </div>
+        </article>
+
+        <article class="security-card">
+          <h2>Your Stats</h2>
+          <div class="stats-grid">
+            <article><strong>{{ total_bookings }}</strong><span>Total Bookings</span></article>
+            <article><strong>{{ bookings_this_year }}</strong><span>This Year</span></article>
+            <article><strong>{{ favorite_salon_count }}</strong><span>Favorite Salons</span></article>
+            <article><strong>{{ avg_rating_display }}</strong><span>Avg Rating</span></article>
+          </div>
+        </article>
+
+        <article class="security-card loyalty-card">
+          <h2>Loyalty Rewards</h2>
+          <p class="muted">Points Balance <strong class="right">{{ loyalty_points }} pts</strong></p>
+          <div class="progress"><span class="progress-fill" data-progress="{{ progress_percent }}"></span></div>
+          <p class="tiny">{{ points_remaining }} points until next level</p>
+          <button type="button" class="outline-btn">View Rewards</button>
+        </article>
+
+        <article class="security-card">
+          <h2>Delete Account</h2>
+          <p class="muted">This action is permanent. All your account data and bookings will be removed.</p>
+          <form id="delete-account-form" method="post" novalidate>
+            {% csrf_token %}
+            <label>Current Password <input type="password" name="current_password" required /></label>
+            <button type="submit" class="danger-btn">Delete My Account</button>
+          </form>
+          <p id="delete-status"></p>
+        </article>
+      </section>
+
+      <section class="right-column">
+        <article>
+          <div class="section-head">
+            <h2>Upcoming Appointments</h2>
+            <a class="outline-btn inline" href="/booking/">Book New</a>
+          </div>
+          {% if upcoming_bookings %}
+            {% for booking in upcoming_bookings %}
+              <div class="appointment-card">
+                {% if booking.salon.image %}
+                  <img src="{{ booking.salon.image.url }}" alt="{{ booking.salon.name }}" />
+                {% else %}
+                  <img
+                    src="https://images.unsplash.com/photo-1611211235015-e2e3a7d09e97?auto=format&fit=crop&w=700&q=80"
+                    alt="{{ booking.salon.name }}"
+                  />
+                {% endif %}
+                <div class="appointment-body">
+                  <div class="appointment-top">
+                    <div>
+                      <h3>{{ booking.salon.name }}</h3>
+                      <p class="muted">{{ booking.service.name }}</p>
+                    </div>
+                    <span class="badge gold">{{ booking.get_status_display }}</span>
+                  </div>
+                  <p class="muted">{{ booking.booking_date|date:"F j, Y" }} at {{ booking.start_time|time:"g:i A" }}</p>
+                  <div class="appointment-actions">
+                    <strong>${{ booking.service.price }}</strong>
+                    <div>
+                      <a class="outline-btn mini" href="/booking/{{ booking.salon_id }}/?reschedule_booking={{ booking.id }}">Reschedule</a>
+                      <button
+                        type="button"
+                        class="ghost-btn mini js-cancel-booking"
+                        data-booking-id="{{ booking.id }}"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="history-card">
+              <p class="muted">No upcoming appointments yet. Book your next session now.</p>
+            </div>
+          {% endif %}
+        </article>
+
+        <article>
+          <h2>Appointment History</h2>
+          {% if history_bookings %}
+            {% for booking in history_bookings %}
+              <div class="history-card">
+                <div>
+                  <h3>{{ booking.salon.name }}</h3>
+                  <p class="muted">{{ booking.service.name }}</p>
+                  <p class="muted tiny">{{ booking.booking_date|date:"F j, Y" }} at {{ booking.start_time|time:"g:i A" }}</p>
+                </div>
+                <div class="history-right">
+                  <p><span class="badge outline">{{ booking.get_status_display }}</span></p>
+                  <p>${{ booking.service.price }}</p>
+                  <p class="stars">★★★★★</p>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="history-card">
+              <p class="muted">Your past appointments will appear here.</p>
+            </div>
+          {% endif %}
+        </article>
+
+        <article>
+          <h2>Favorite Salons</h2>
+          {% if favorite_items %}
+            <div class="favorites-grid">
+              {% for item in favorite_items %}
+                <a class="favorite-card" href="/salon/{{ item.salon_id }}/">
+                  {% if item.salon.image %}
+                    <img src="{{ item.salon.image.url }}" alt="{{ item.salon.name }}" />
+                  {% else %}
+                    <img
+                      src="https://images.unsplash.com/photo-1611211235015-e2e3a7d09e97?auto=format&fit=crop&w=700&q=80"
+                      alt="{{ item.salon.name }}"
+                    />
+                  {% endif %}
+                  <div class="favorite-body">
+                    <h3>{{ item.salon.name }}</h3>
+                    <p class="muted">{{ item.salon.address|truncatechars:34 }}</p>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="history-card">
+              <p class="muted">No favorites yet. Book a few appointments to build your favorites list.</p>
+            </div>
+          {% endif %}
+        </article>
+
+        <article class="security-card">
+          <h2>Two-Factor Authentication</h2>
+          <p><strong>Status:</strong> {% if two_factor_enabled %}Enabled{% else %}Disabled{% endif %}</p>
+          <form id="twofa-form" method="post" novalidate>
+            {% csrf_token %}
+            <label>Current Password <input type="password" name="current_password" required /></label>
+            <label>Secret Word/Phrase <input type="text" name="secret_word" placeholder="Required when enabling" /></label>
+            <label class="inline-check">Enable 2FA <input type="checkbox" name="enabled" {% if two_factor_enabled %}checked{% endif %} /></label>
+            <button type="submit">Save Security Settings</button>
+          </form>
+          <p id="status"></p>
+        </article>
+
+        <article class="security-card">
+          <h2>Change Password</h2>
+          <form id="password-change-form" method="post" novalidate>
+            {% csrf_token %}
+            <label>
+              Current Password
+              <span class="password-field">
+                <input id="password-current" type="password" name="current_password" required />
+                <button type="button" class="password-toggle" data-password-toggle="password-current" aria-label="Show or hide current password">👁</button>
+              </span>
+            </label>
+            <label>
+              New Password
+              <span class="password-field">
+                <input id="password-new" type="password" name="new_password" required />
+                <button type="button" class="password-toggle" data-password-toggle="password-new" aria-label="Show or hide new password">👁</button>
+              </span>
+            </label>
+            <label>
+              Confirm New Password
+              <span class="password-field">
+                <input id="password-confirm" type="password" name="confirm_new_password" required />
+                <button type="button" class="password-toggle" data-password-toggle="password-confirm" aria-label="Show or hide confirm password">👁</button>
+              </span>
+            </label>
+            <button type="submit">Update Password</button>
+          </form>
+          <p id="password-change-status"></p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="profile-footer">
+      <div>
+        <h3>Beaute</h3>
+        <p>Your premium beauty booking platform. Discover and book the best salons in your area.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="#">About Us</a>
+        <a href="#">Services</a>
+        <a href="#">Salons</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>info@beaute.com</p>
+        <p>+1 (555) 123-4567</p>
+      </div>
+    </footer>
+
+    <div id="photo-modal" class="photo-modal hidden" role="dialog" aria-modal="true" aria-labelledby="photo-modal-title">
+      <div class="photo-modal-card">
+        <div class="photo-modal-head">
+          <h2 id="photo-modal-title">Edit Profile Picture</h2>
+          <button id="close-photo-modal" type="button" class="ghost-btn mini">Close</button>
+        </div>
+        <p class="muted tiny">Allowed formats: JPG, JPEG, PNG. Max size: 5MB.</p>
+        <input id="photo-input" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" />
+        <div class="photo-editor-wrap">
+          <canvas id="photo-editor-canvas" width="320" height="320" aria-label="Profile photo editor"></canvas>
+        </div>
+        <div class="photo-controls">
+          <label>
+            Zoom
+            <input id="photo-zoom" type="range" min="1" max="3" step="0.05" value="1" />
+          </label>
+          <div class="photo-control-buttons">
+            <button id="photo-zoom-out" type="button" class="outline-btn mini">Zoom Out</button>
+            <button id="photo-zoom-in" type="button" class="outline-btn mini">Zoom In</button>
+            <button id="photo-rotate-left" type="button" class="outline-btn mini">Rotate Left</button>
+            <button id="photo-rotate-right" type="button" class="outline-btn mini">Rotate Right</button>
+          </div>
+        </div>
+        <div class="photo-modal-actions">
+          <button id="save-photo-btn" type="button" class="edit-btn">Save Photo</button>
+        </div>
+        <p id="photo-modal-status" class="tiny"></p>
+      </div>
+    </div>
+
+    <script src="{% static 'js/profile.js' %}" defer></script>
+  </body>
+</html>

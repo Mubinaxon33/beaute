@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaute | Booking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/booking.css' %}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="back" href="/salons/">Back to Salon</a>
+      <h1>Beaute</h1>
+      <div class="spacer"></div>
+    </header>
+
+    <section class="page-wrap">
+      <h2 class="page-title">{% if reschedule_booking %}Reschedule Appointment{% else %}Book Your Appointment{% endif %}</h2>
+
+    <main class="booking-layout">
+      <section class="left-column">
+        <form
+          id="booking-form"
+          method="post"
+          action="/booking/{{ salon.id }}/create/"
+          data-salon-id="{{ salon.id }}"
+          data-reschedule-booking-id="{% if reschedule_booking %}{{ reschedule_booking.id }}{% endif %}"
+          data-initial-service-id="{% if reschedule_booking %}{{ reschedule_booking.service_id }}{% endif %}"
+          data-initial-employee-id="{% if reschedule_booking %}{{ reschedule_booking.employee_id }}{% endif %}"
+          data-initial-date="{% if reschedule_booking %}{{ reschedule_booking.booking_date|date:'Y-m-d' }}{% endif %}"
+          data-initial-time="{% if reschedule_booking %}{{ reschedule_booking.start_time|time:'H:i' }}{% endif %}"
+          novalidate
+        >
+          {% csrf_token %}
+
+          <article class="booking-card">
+            <h3>Select Service</h3>
+            <label>Service
+              <select name="service" id="service-select" required></select>
+            </label>
+          </article>
+
+          <article class="booking-card">
+            <h3>Choose Specialist</h3>
+            <label>Specialist
+              <select id="specialist-select" name="employee" required>
+                <option value="">Choose a specialist</option>
+              </select>
+            </label>
+            <p id="specialist-hint" class="field-hint" aria-live="polite"></p>
+          </article>
+
+          <article class="booking-card">
+            <h3>Select Date</h3>
+            <div class="calendar-shell" id="calendar-shell">
+              <div class="calendar-toolbar">
+                <button type="button" class="calendar-nav" id="calendar-prev" aria-label="Previous month">&lt;</button>
+                <p id="calendar-month" class="calendar-month">Month</p>
+                <button type="button" class="calendar-nav" id="calendar-next" aria-label="Next month">&gt;</button>
+              </div>
+              <div class="calendar-weekdays">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div id="calendar-grid" class="calendar-grid" aria-label="Booking calendar"></div>
+            </div>
+            <input type="hidden" name="booking_date" id="booking-date" required />
+          </article>
+
+          <article class="booking-card">
+            <h3>Select Time</h3>
+            <div id="time-slots" class="slots"></div>
+            <input type="hidden" name="start_time" id="start-time" required />
+          </article>
+
+          <article class="booking-card">
+            <h3>Additional Notes</h3>
+            <label>Notes
+              <textarea name="notes" rows="3" placeholder="Any details for your appointment"></textarea>
+            </label>
+          </article>
+        </form>
+      </section>
+
+      <aside class="summary-card">
+        <h3>Booking Summary</h3>
+        <div class="summary-item"><span>Service</span><strong id="summary-service">Not selected</strong></div>
+        <div class="summary-item"><span>Specialist</span><strong id="summary-specialist">Not selected</strong></div>
+        <div class="summary-item"><span>Date</span><strong id="summary-date">Not selected</strong></div>
+        <div class="summary-item"><span>Time</span><strong id="summary-time">Not selected</strong></div>
+        <div class="summary-item"><span>Duration</span><strong id="summary-duration">-</strong></div>
+        <div class="summary-total"><span>Total</span><strong id="summary-total">$0</strong></div>
+        <button type="submit" form="booking-form" id="continue-btn">
+          {% if reschedule_booking %}Save New Time{% else %}Book Appointment{% endif %}
+        </button>
+        <p class="summary-note">Free cancellation up to 24 hours before</p>
+        <p id="booking-message">{% if reschedule_booking %}Select a new date/time and save your changes.{% endif %}</p>
+      </aside>
+    </main>
+    </section>
+    <script src="{% static 'js/booking.js' %}" defer></script>
+  </body>
+</html>

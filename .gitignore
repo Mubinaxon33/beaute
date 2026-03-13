@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Django static/media
+backend/staticfiles/
+backend/media/
+media/
+
+# Environment
+.env
+
+# PostgreSQL volume/bind data
+postgres_data/
+
+# Node tooling leftovers
+node_modules/
+dist/

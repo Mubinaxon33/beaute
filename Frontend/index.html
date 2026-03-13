@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaute | Discover Salons</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="logo" href="index.html">Beaute</a>
+      <nav>
+        <a class="active" href="index.html">Services</a>
+        <a href="booking.html">Bookings</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      <a class="login-link" href="login.html">Login</a>
+    </header>
+
+    <section class="hero">
+      <img
+        src="https://images.unsplash.com/photo-1763048208932-cbe149724374?auto=format&fit=crop&w=1600&q=80"
+        alt="Beauty salon"
+      />
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>Your Beauty, Your Way</h1>
+        <p>Discover and book the best beauty salons in your area.</p>
+      </div>
+    </section>
+
+    <main class="container">
+      <section class="search-card">
+        <input id="service-search" type="text" placeholder="Search for services..." />
+        <input id="location-filter" type="text" placeholder="Location" />
+        <button id="location-search-btn" type="button">Search</button>
+      </section>
+
+      <section>
+        <h2>Categories</h2>
+        <div id="category-filters" class="categories">
+          <article class="category-filter" data-category="hair" tabindex="0" role="button" aria-pressed="false">✂️<span>Hair</span></article>
+          <article class="category-filter" data-category="nails" tabindex="0" role="button" aria-pressed="false">💅<span>Nails</span></article>
+          <article class="category-filter" data-category="makeup" tabindex="0" role="button" aria-pressed="false">💄<span>Makeup</span></article>
+          <article class="category-filter" data-category="skincare" tabindex="0" role="button" aria-pressed="false">✨<span>Skincare</span></article>
+          <article class="category-filter" data-category="spa" tabindex="0" role="button" aria-pressed="false">🧖<span>Spa</span></article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Featured Salons</h2>
+        <div id="salon-grid" class="salon-grid"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <section>
+        <h3>Beaute</h3>
+        <p>Your premium beauty booking platform. Discover and book the best salons in your area.</p>
+      </section>
+      <section>
+        <h4>Quick Links</h4>
+        <a href="#">About Us</a>
+        <a href="#">Services</a>
+        <a href="#">Salons</a>
+      </section>
+      <section>
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </section>
+      <section>
+        <h4>Contact</h4>
+        <p>info@beaute.com</p>
+        <p>+1 (555) 123-4567</p>
+        <p>New York, NY</p>
+      </section>
+    </footer>
+
+    <script src="js/index.js" defer></script>
+  </body>
+</html>

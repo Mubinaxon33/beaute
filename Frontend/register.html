@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaute | Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/register.css" />
+  </head>
+  <body>
+    <div class="split">
+      <main class="auth-panel">
+        <div class="auth-card">
+          <h1>Join Beaute</h1>
+          <p>Create your account to get started</p>
+          <form id="register-form" novalidate>
+            <label>
+              Full Name
+              <input type="text" name="full_name" required />
+              <small class="field-error" data-error-for="full_name"></small>
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required />
+              <small class="field-error" data-error-for="email"></small>
+            </label>
+            <label>
+              Username
+              <input type="text" name="username" required />
+              <small class="field-error" data-error-for="username"></small>
+            </label>
+            <label>
+              Phone Number
+              <input type="tel" name="phone_number" id="phone-number" value="+998 " required />
+              <small class="field-error" data-error-for="phone_number"></small>
+            </label>
+            <label class="password-row">
+              Password
+              <span class="password-input-wrap">
+                <input type="password" name="password" id="register-password" required minlength="8" />
+                <button type="button" class="eye-btn" data-target="register-password" aria-label="Show password">&#128065;</button>
+              </span>
+              <small class="field-error" data-error-for="password"></small>
+            </label>
+            <div class="password-strength" id="password-strength">Strength: -</div>
+            <label class="password-row">
+              Re-enter Password
+              <span class="password-input-wrap">
+                <input type="password" name="confirm_password" id="register-confirm-password" required minlength="8" />
+                <button type="button" class="eye-btn" data-target="register-confirm-password" aria-label="Show password">&#128065;</button>
+              </span>
+              <small class="field-error" data-error-for="confirm_password"></small>
+            </label>
+            <p class="password-hint">Use at least 8 chars with uppercase, lowercase, number, and special character.</p>
+            <button type="submit">Create Account</button>
+          </form>
+          <p>Already have an account? <a href="login.html">Login</a></p>
+          <p id="message"></p>
+        </div>
+      </main>
+      <section class="visual"></section>
+    </div>
+    <script src="js/register.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaute | Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body>
+    <div class="split">
+      <section class="visual"></section>
+      <main class="auth-panel">
+        <div class="auth-card">
+          <h1>Beaute</h1>
+          <p>Welcome back to your beauty journey</p>
+          <form id="login-form" novalidate>
+            <label>Username <input type="text" name="username" required /></label>
+            <label class="password-row">
+              Password
+              <span class="password-input-wrap">
+                <input type="password" name="password" id="login-password" required />
+                <button type="button" class="eye-btn" data-target="login-password" aria-label="Show password">&#128065;</button>
+              </span>
+            </label>
+            <label id="twofa-field" class="hidden"
+              >2FA Secret Word <input type="text" name="twofa_secret"
+            /></label>
+            <button type="submit">Login</button>
+          </form>
+          <p>New here? <a href="register.html">Create account</a></p>
+          <p id="message"></p>
+
+          <button id="open-support-modal" type="button" class="support-launch-btn">Need Help Logging In?</button>
+        </div>
+      </main>
+    </div>
+
+    <div id="support-modal" class="support-modal hidden" role="dialog" aria-modal="true" aria-labelledby="support-modal-title">
+      <div class="support-modal-card">
+        <div class="support-modal-head">
+          <h3 id="support-modal-title">Contact Support</h3>
+          <button id="close-support-modal" type="button" class="close-support-btn" aria-label="Close support form">Close</button>
+        </div>
+        <p class="support-note">Send a message to support and our admins will assist you.</p>
+        <form id="support-form" novalidate>
+          <label>Subject <input type="text" name="subject" placeholder="Login issue subject" /></label>
+          <label>Email (required) <input type="email" name="email" required /></label>
+          <label>Message <textarea name="message" rows="4" placeholder="Describe your login issue" required></textarea></label>
+          <button type="submit" class="support-btn">Send to Support</button>
+        </form>
+        <p id="support-message"></p>
+      </div>
+    </div>
+    <script src="js/login.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaute | Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/profile.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="logo" href="index.html">Beaute</a>
+      <nav>
+        <a href="index.html">Services</a>
+        <a href="booking.html">Salons</a>
+        <a class="active" href="profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <section class="profile-hero">
+      <div class="profile-hero-inner">
+        <div class="avatar-wrap">
+          <img
+            id="profile-avatar"
+            class="avatar"
+            src="images/default-user.svg"
+            alt="Profile"
+          />
+          <button id="open-photo-modal" type="button" class="outline-btn mini">Change Photo</button>
+        </div>
+        <div class="hero-text">
+          <h1>Sarah Johnson</h1>
+          <p>Member since January 20, 2025</p>
+          <div class="badges">
+            <span class="badge gold">Bronze Member</span>
+            <span class="badge outline">0 Points</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button id="toggle-profile-edit" class="edit-btn" type="button">Edit Profile</button>
+          <a class="edit-btn" href="login.html">Logout</a>
+        </div>
+      </div>
+
+      <form id="profile-update-form" class="security-card hidden" novalidate>
+        <h2>Edit Profile</h2>
+        <label>Full Name <input type="text" name="full_name" value="Sarah Johnson" required /></label>
+        <label>Phone Number <input id="phone-input" type="text" name="phone_number" value="+998 (90)-123-45-67" placeholder="+998 (XX)-XXX-XX-XX" /></label>
+        <label>
+          Location
+          <input id="location-input" type="text" name="location" value="Manhattan, New York" placeholder="Enter your location" />
+        </label>
+        <div class="location-actions">
+          <button id="detect-location-btn" type="button" class="outline-btn mini">Use My Location</button>
+          <button type="submit" class="edit-btn mini">Save Profile</button>
+        </div>
+        <p id="profile-update-status"></p>
+      </form>
+    </section>
+
+    <main class="profile-wrapper">
+      <section class="left-column">
+        <article class="security-card">
+          <div class="card-heading">
+            <h2>Personal Information</h2>
+          </div>
+          <div class="info-group">
+            <p class="muted">Email</p>
+            <p>sarah.johnson@email.com</p>
+          </div>
+          <div class="divider"></div>
+          <div class="info-group">
+            <p class="muted">Phone</p>
+            <p id="phone-display">+998 (90)-123-45-67</p>
+          </div>
+          <div class="divider"></div>
+          <div class="info-group">
+            <p class="muted">Location</p>
+            <p id="location-display">Manhattan, New York</p>
+          </div>
+        </article>
+
+        <article class="security-card">
+          <h2>Your Stats</h2>
+          <div class="stats-grid">
+            <article><strong>28</strong><span>Total Bookings</span></article>
+            <article><strong>12</strong><span>This Year</span></article>
+            <article><strong>8</strong><span>Favorite Salons</span></article>
+            <article><strong>4.9</strong><span>Avg Rating</span></article>
+          </div>
+        </article>
+
+        <article class="security-card loyalty-card">
+          <h2>Loyalty Rewards</h2>
+          <p class="muted">Points Balance <strong class="right">0 pts</strong></p>
+          <div class="progress"><span class="progress-fill" data-progress="0"></span></div>
+          <p class="tiny">1000 points until next level</p>
+          <button type="button" class="outline-btn">View Rewards</button>
+        </article>
+
+        <article class="security-card">
+          <h2>Delete Account</h2>
+          <p class="muted">This action is permanent. All your account data and bookings will be removed.</p>
+          <form id="delete-account-form" novalidate>
+            <label>Current Password <input type="password" name="current_password" required /></label>
+            <button type="submit" class="danger-btn">Delete My Account</button>
+          </form>
+          <p id="delete-status"></p>
+        </article>
+      </section>
+
+      <section class="right-column">
+        <article>
+          <div class="section-head">
+            <h2>Upcoming Appointments</h2>
+            <a class="outline-btn inline" href="booking.html">Book New</a>
+          </div>
+
+          <div class="appointment-card">
+            <img
+              src="https://images.unsplash.com/photo-1611211235015-e2e3a7d09e97?auto=format&fit=crop&w=700&q=80"
+              alt="Luxe Beauty Studio"
+            />
+            <div class="appointment-body">
+              <div class="appointment-top">
+                <div>
+                  <h3>Luxe Beauty Studio</h3>
+                  <p class="muted">Hair Styling & Color</p>
+                </div>
+                <span class="badge gold">confirmed</span>
+              </div>
+              <p class="muted">March 15, 2026 at 2:00 PM</p>
+              <div class="appointment-actions">
+                <strong>$180</strong>
+                <div>
+                  <button type="button" class="outline-btn mini">Reschedule</button>
+                  <button type="button" class="ghost-btn mini">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <h2>Appointment History</h2>
+          <div class="history-card">
+            <div>
+              <h3>Glamour Spa & Salon</h3>
+              <p class="muted">Manicure & Pedicure</p>
+              <p class="muted tiny">March 5, 2026 at 3:30 PM</p>
+            </div>
+            <div class="history-right">
+              <p>$85</p>
+              <p class="stars">★★★★★</p>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <h2>Favorite Salons</h2>
+          <div class="favorites-grid">
+            <a class="favorite-card" href="salon_detail.html?id=1">
+              <img
+                src="https://images.unsplash.com/photo-1611211235015-e2e3a7d09e97?auto=format&fit=crop&w=700&q=80"
+                alt="Luxe Beauty Studio"
+              />
+              <div class="favorite-body">
+                <h3>Luxe Beauty Studio</h3>
+                <p class="muted">4.9 - Downtown, Manhattan</p>
+              </div>
+            </a>
+            <a class="favorite-card" href="salon_detail.html?id=2">
+              <img
+                src="https://images.unsplash.com/photo-1731514771613-991a02407132?auto=format&fit=crop&w=700&q=80"
+                alt="Serenity Wellness Spa"
+              />
+              <div class="favorite-body">
+                <h3>Serenity Wellness Spa</h3>
+                <p class="muted">4.9 - Midtown West</p>
+              </div>
+            </a>
+          </div>
+        </article>
+
+        <article class="security-card">
+          <h2>Two-Factor Authentication</h2>
+          <form id="twofa-form" novalidate>
+            <label>Current Password <input type="password" name="current_password" required /></label>
+            <label>Secret Word/Phrase <input type="text" name="secret_word" placeholder="Only required to enable 2FA" /></label>
+            <label class="inline-check">Enable 2FA <input type="checkbox" name="enabled" /></label>
+            <button type="submit">Save Security Settings</button>
+          </form>
+          <p id="status"></p>
+        </article>
+
+        <article class="security-card">
+          <h2>Change Password</h2>
+          <form id="password-change-form" novalidate>
+            <label>
+              Current Password
+              <span class="password-field">
+                <input id="password-current" type="password" name="current_password" required />
+                <button type="button" class="password-toggle" data-password-toggle="password-current" aria-label="Show or hide current password">👁</button>
+              </span>
+            </label>
+            <label>
+              New Password
+              <span class="password-field">
+                <input id="password-new" type="password" name="new_password" required />
+                <button type="button" class="password-toggle" data-password-toggle="password-new" aria-label="Show or hide new password">👁</button>
+              </span>
+            </label>
+            <label>
+              Confirm New Password
+              <span class="password-field">
+                <input id="password-confirm" type="password" name="confirm_new_password" required />
+                <button type="button" class="password-toggle" data-password-toggle="password-confirm" aria-label="Show or hide confirm password">👁</button>
+              </span>
+            </label>
+            <button type="submit">Update Password</button>
+          </form>
+          <p id="password-change-status"></p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="profile-footer">
+      <div>
+        <h3>Beaute</h3>
+        <p>Your premium beauty booking platform. Discover and book the best salons in your area.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="#">About Us</a>
+        <a href="#">Services</a>
+        <a href="#">Salons</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>info@beaute.com</p>
+        <p>+1 (555) 123-4567</p>
+      </div>
+    </footer>
+
+    <div id="photo-modal" class="photo-modal hidden" role="dialog" aria-modal="true" aria-labelledby="photo-modal-title">
+      <div class="photo-modal-card">
+        <div class="photo-modal-head">
+          <h2 id="photo-modal-title">Edit Profile Picture</h2>
+          <button id="close-photo-modal" type="button" class="ghost-btn mini">Close</button>
+        </div>
+        <p class="muted tiny">Allowed formats: JPG, JPEG, PNG. Max size: 5MB.</p>
+        <input id="photo-input" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" />
+        <div class="photo-editor-wrap">
+          <canvas id="photo-editor-canvas" width="320" height="320" aria-label="Profile photo editor"></canvas>
+        </div>
+        <div class="photo-controls">
+          <label>
+            Zoom
+            <input id="photo-zoom" type="range" min="1" max="3" step="0.05" value="1" />
+          </label>
+          <div class="photo-control-buttons">
+            <button id="photo-zoom-out" type="button" class="outline-btn mini">Zoom Out</button>
+            <button id="photo-zoom-in" type="button" class="outline-btn mini">Zoom In</button>
+            <button id="photo-rotate-left" type="button" class="outline-btn mini">Rotate Left</button>
+            <button id="photo-rotate-right" type="button" class="outline-btn mini">Rotate Right</button>
+          </div>
+        </div>
+        <div class="photo-modal-actions">
+          <button id="save-photo-btn" type="button" class="edit-btn">Save Photo</button>
+        </div>
+        <p id="photo-modal-status" class="tiny"></p>
+      </div>
+    </div>
+
+    <script src="js/profile.js" defer></script>
+  </body>
+</html>
